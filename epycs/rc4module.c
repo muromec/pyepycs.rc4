@@ -35,16 +35,28 @@ out:
 
 }
 
-static PyObject * PyRC4_crypt(PyRC4_context* self, PyObject *data) {
+static PyObject * do_crypt(PyRC4_context* self, PyObject *data, int test) {
+
     char *c_data = PyString_AsString(data);
     int len = PyString_Size(data);
-    RC4_crypt(c_data, len, &self->ctx, 1);
+    RC4_crypt(c_data, len, &self->ctx, test);
     return PyString_FromStringAndSize(c_data, len);
+}
+
+static PyObject * PyRC4_crypt(PyRC4_context* self, PyObject *data) {
+    return do_crypt(self, data, 0);
+}
+
+static PyObject * PyRC4_test(PyRC4_context* self, PyObject *data) {
+    return do_crypt(self, data, 1);
 }
 
 static PyMethodDef PyRC4_methods[] = {
 	{"crypt", (PyCFunction)PyRC4_crypt, METH_O,
         "crypt or decrypt object"},
+	{"test", (PyCFunction)PyRC4_test, METH_O,
+        "crypt or decrypt object (test mode)"},
+
    {NULL}  /* Sentinel */
 };
 
