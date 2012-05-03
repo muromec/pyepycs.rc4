@@ -12,7 +12,7 @@ typedef struct {
 static int
 PyRC4_init(PyRC4_context *self, PyObject *args, PyObject *kwds)
 {
-	PY_UINT64_T iv;
+	unsigned int iv;
 	if (!PyArg_ParseTuple(args, "l", &iv))
 		return NULL;
 
