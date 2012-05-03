@@ -13,7 +13,7 @@ static int
 PyRC4_init(PyRC4_context *self, PyObject *args, PyObject *kwds)
 {
 	unsigned int iv;
-	if (!PyArg_ParseTuple(args, "l", &iv))
+	if (!PyArg_ParseTuple(args, "I", &iv))
 		return NULL;
 
 	Skype_RC4_Expand_IV(iv, NULL, &self->ctx, 1, 0);
